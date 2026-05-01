@@ -1,0 +1,29 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
+import time
+
+# Setup driver
+service = Service("msedgedriver.exe")
+options = Options()
+
+driver = webdriver.Edge(service=service, options=options)
+
+# Open Google
+driver.get("https://www.google.com")
+driver.maximize_window()
+
+time.sleep(2)
+
+# Find search box
+try:
+    search_box = driver.find_element(By.NAME, "q")
+    print("Test Passed - Search box found")
+except:
+    print("Test Failed - Search box not found")
+
+print("Automation Running...")
+
+time.sleep(3)
+driver.quit()

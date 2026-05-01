@@ -1,0 +1,34 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+
+# Setup driver
+service = Service("msedgedriver.exe")
+options = Options()
+options.add_argument("--start-maximized")
+
+driver = webdriver.Edge(service=service, options=options)
+
+# Open Facebook
+driver.get("https://www.facebook.com")
+
+wait = WebDriverWait(driver, 20)
+
+# Locate fields
+email = wait.until(EC.visibility_of_element_located((By.NAME, "email")))
+password = wait.until(EC.visibility_of_element_located((By.NAME, "pass")))
+
+# Use dummy credentials (replace securely if needed)
+email.send_keys("your_email_here")
+password.send_keys("your_password_here")
+
+# Submit form
+password.send_keys(Keys.RETURN)
+
+print("Login attempt executed")
+
+driver.quit()
